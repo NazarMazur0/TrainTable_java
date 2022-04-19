@@ -10,7 +10,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/linearLayout2"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="1dp">
+            android:layout_marginStart="1dp" android:background="@drawable/recycler_style">
         <TextView
                 android:text="Місто \n відправлення"
                 android:layout_width="match_parent"
@@ -20,6 +20,6 @@
                 android:text="Час\n відправлення"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/startTime" android:layout_weight="1"
-                android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
+                android:textColor="@color/black" android:textAlignment="center" android:textSize="13sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

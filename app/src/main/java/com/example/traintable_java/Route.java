@@ -51,7 +51,13 @@ public class Route {
         }
         return stopsNames;
     }
-
+    ArrayList<Stop> getStopsList(){
+        ArrayList<Stop> s = new ArrayList<>();
+        getStops().forEach(i->{
+            s.add(new Stop(i.get(0),i.get(1)));
+        });
+        return s;
+    }
 
 
     @Override

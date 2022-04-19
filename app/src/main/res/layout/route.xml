@@ -3,7 +3,8 @@
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
-                                                   android:layout_height="wrap_content" android:background="#AAB8C8">
+                                                   android:layout_height="wrap_content"
+                                                   android:background="@drawable/recycler_style">
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -15,7 +16,7 @@
                 android:text="Номер \n поїзда"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/code" android:layout_weight="1"
-                android:textColor="@color/teal_700" android:textSize="13sp"/>
+                android:textColor="@color/black" android:textSize="13sp"/>
         <TextView
                 android:text="Місто \n відправлення"
                 android:layout_width="wrap_content"
@@ -25,7 +26,7 @@
                 android:text="Час\n відправлення"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/startTime" android:layout_weight="1"
-                android:textColor="#FFF6F6" android:textAlignment="viewEnd" android:textSize="13sp"/>
+                android:textColor="@color/black" android:textAlignment="viewEnd" android:textSize="13sp"/>
         <TextView
                 android:text="Місто\nприбуття"
                 android:layout_width="wrap_content"
@@ -35,6 +36,6 @@
                 android:text="Час\n прибуття"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/endTime" android:layout_weight="1"
-                android:textColor="#FFF6F6" android:textAlignment="viewEnd" android:textSize="13sp"/>
+                android:textColor="@color/black" android:textAlignment="viewEnd" android:textSize="13sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

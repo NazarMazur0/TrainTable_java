@@ -8,7 +8,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.*;
@@ -21,9 +21,7 @@ import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
     private Route[] routes;
-    private RecyclerView listView ;
-    private View listHeader;
-    private View listHeaderStop;
+    private RecyclerView recyclerView;
     private Button mbutton;
     private Switch mswitch;
     private EditText from;
@@ -40,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mswitch=findViewById(R.id.mswitch);
-        listView = findViewById(R.id.RV);
-        listView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recyclerView = findViewById(R.id.RV);
+       // recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         //LinearLayoutManager l =
         mbutton = findViewById(R.id.search);
         from=findViewById(R.id.editTextTextFrom);
@@ -51,14 +49,11 @@ public class MainActivity extends AppCompatActivity {
         toTv=findViewById(R.id.textViewTo);
         editCode=findViewById(R.id.editTextCode);
         codeTv=findViewById(R.id.textViewCode);
-        //code_button=findViewById(R.id.button_code_details);
-        listHeader=getLayoutInflater().inflate(R.layout.list_header,listView,false);
-        listHeaderStop=getLayoutInflater().inflate(R.layout.list_header_stop,listView,false);
         fadeout = AnimationUtils.loadAnimation(this,R.anim.fadeout);
         fadein = AnimationUtils.loadAnimation(this,R.anim.fadein);
         RecyclerView v = new RecyclerView(this);
        hideView(editCode,codeTv);
-       listView.setVisibility(View.INVISIBLE);
+       recyclerView.setVisibility(View.INVISIBLE);
         mbutton.setOnClickListener(
                 view -> {
                     if(!switcState) {
@@ -82,13 +77,17 @@ public class MainActivity extends AppCompatActivity {
     void toggleSwitch(boolean isChecked){
         if(isChecked){
             mswitch.setText(R.string.switch_on);
-            hideView(to,toTv,from,fromTv,listView);
+            hideView(to,toTv,from,fromTv, recyclerView);
+            recyclerView.setAdapter(new StopAdapterR(new ArrayList<>()));
+            recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
             showView(editCode,codeTv);
             switcState=true;
         }else  {
             mswitch.setText(R.string.switch_off);
             showView(to,toTv,from,fromTv);
-            hideView(editCode,codeTv,listView);
+            recyclerView.setAdapter(new StopAdapterR(new ArrayList<>()));
+            recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            hideView(editCode,codeTv, recyclerView);
             switcState=false;
         }
     }
@@ -107,21 +106,28 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,R.string.toast_empty_input,Toast.LENGTH_LONG).show();
             return;
         }
-        //listView.removeViewAt(0);
-        //MatchAdapter adapter = new MatchAdapter(this, arrayOfMatches);
-        listView.setAdapter(new MatchAdapterR(arrayOfMatches));
-        listView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        //listView.addView(listHeader,0);
-        listView.setVisibility(View.VISIBLE);
-        listView.startAnimation(fadein);
+        ArrayList<Match> headerMatch = new ArrayList<>();
+        headerMatch.add( new Match(
+                getString(R.string.header_code),
+                getString(R.string.header_city_from),
+                getString(R.string.header_city_to)  ,
+                getString(R.string.header_time_from),
+                getString(R.string.header_time_to)
+        ));
+        ConcatAdapter adapter = new ConcatAdapter(
+                new HeaderMatchAdapterR(headerMatch),
+                new MatchAdapterR(arrayOfMatches)
+        );
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recyclerView.setVisibility(View.VISIBLE);
+        recyclerView.startAnimation(fadein);
     }
     void showResult(String code){
         loadRoutes();
         Match match=null;
-        ArrayList<Match> matches = new ArrayList<>();
         try {
             match = searchByCode(code);
-            matches.add(match);
         }
         catch (IllegalArgumentException e){
             Toast.makeText(this,R.string.toast_bad_code,Toast.LENGTH_LONG).show();
@@ -131,18 +137,22 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,R.string.toast_empty_input_code,Toast.LENGTH_LONG).show();
             return;
         }
-       // listView.removeViewAt(0);
-       // listView.removeHeaderView(listHeaderStop);
-        /*MatchAdapter adapter1 = new MatchAdapter(this,matches);
-        listView.setAdapter(adapter1);
-        listView.addHeaderView(listHeader);*/
 
-        ArrayList<Stop> n = getStopsList(getRouteByMatch(match));
-        listView.setAdapter(new StopAdapterR(n));
-        listView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        //listView.addView(listHeaderStop,0);
-        listView.setVisibility(View.VISIBLE);
-        listView.startAnimation(fadein);
+
+        ArrayList<Stop> stopsList =getRouteByMatch(match).getStopsList();
+        ArrayList<Stop> headerStop = new ArrayList<>();
+        headerStop.add(new Stop(
+                getString(R.string.stop_from_text),
+                getString( R.string.stop_fromTime_text)
+        ));
+        ConcatAdapter adapter = new ConcatAdapter(
+                new HeaderStopAdapterR(headerStop),
+                new StopAdapterR(stopsList)
+        );
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recyclerView.setVisibility(View.VISIBLE);
+        recyclerView.startAnimation(fadein);
     }
 
 
@@ -244,20 +254,6 @@ public class MainActivity extends AppCompatActivity {
         }
         if(match==null)throw new IllegalArgumentException("Unexpected code value: "+code);
         return match;
-    }
-    ArrayList<Stop> getStopsList(Route obj){
-        ArrayList<Stop> s = new ArrayList<>();
-            /*obj.getMapOfStops().entrySet().forEach(j->{
-                s.add(new Stop(j.getKey(),j.getValue()));
-            });*/
-            obj.getStops().forEach(i->{
-             s.add(new Stop(i.get(0),i.get(1)));
-            });
-            //s.sort(Comparator.comparing(Stop::getTime));
-        s.forEach(i->{
-            Log.d("stop",""+i);
-        });
-        return s;
     }
     Route getRouteByMatch(Match match){
         for (Route i :routes) {

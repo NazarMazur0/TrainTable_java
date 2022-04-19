@@ -11,27 +11,27 @@
             android:id="@+id/linearLayout"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent">
         <TextView
-                android:text="Номер \n поїзда"
+                android:text="@string/header_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/code" android:layout_weight="1"
                 android:textColor="#FFF6F6" android:textSize="13sp"/>
         <TextView
-                android:text="Місто \n відправлення"
+                android:text="@string/header_city_from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/start" android:layout_weight="1"
                 android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
         <TextView
-                android:text="Час\n відправлення"
+                android:text="@string/header_time_from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/startTime" android:layout_weight="1"
                 android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
         <TextView
-                android:text="Місто\nприбуття"
+                android:text="@string/header_city_to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/end" android:layout_weight="1"
                 android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
         <TextView
-                android:text="Час\n прибуття"
+                android:text="@string/header_time_to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/endTime" android:layout_weight="1"
                 android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
