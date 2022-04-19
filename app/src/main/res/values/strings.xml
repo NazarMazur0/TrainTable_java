@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TrainTable_java</string>
+    <string name="hintTo">Львів</string>
+    <string name="hintFrom">Київ</string>
+    <string name="search_btn_text">ПОШУК</string>
+    <string name="from_text">Пункт  відправлення:</string>
+    <string name="to_text">Пункт прибуття:</string>
+    <string name="toast_same_names">Пункт відправлення і пункт прибуття не може співпадати</string>
+    <string name="toast_empty_input">Одне з полів пусте</string>
+    <string name="toast_empty_input_code">Поле пусте</string>
+    <string name="toast_bad_code">Невірний код</string>
+    <string name="number_text">Номер:</string>
+    <string name="number_hint">001Л</string>
+    <string name="title_activity_search_by_code">SearchByCode</string>
+    <string name="switch_off">Пошук за пунктами</string>
+    <string name="switch_on">Пошук за номером</string>
+    <string name="stop_from_text">Місто \n відправлення</string>
+    <string name="stop_fromTime_text">Час \n відправлення</string>
+</resources>
