@@ -14,8 +14,6 @@
     <string name="title_activity_search_by_code">SearchByCode</string>
     <string name="switch_off">Пошук за пунктами</string>
     <string name="switch_on">Пошук за номером</string>
-    <string name="stop_from_text">Місто \n відправлення</string>
-    <string name="stop_fromTime_text">Час \n відправлення</string>
     <string name="header_code">Номер \n поїзда</string>
     <string name="header_city_from">Місто \n відправлення</string>
     <string name="header_time_from">Час\n відправлення</string>

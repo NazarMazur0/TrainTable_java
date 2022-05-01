@@ -6,53 +6,39 @@ public class Match {
     private String end;
     private String startTime;
     private String endTime;
+    private String periodic;
+
+    public String getPeriodic() {
+        return periodic;
+    }
 
     public String getCode() {
         return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getStart() {
         return start;
     }
 
-    public void setStart(String start) {
-        this.start = start;
-    }
-
     public String getEnd() {
         return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
     }
 
     public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
     public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-    public Match(String code, String start, String end, String startTime, String endTime) {
+    public Match(String code, String start, String end, String startTime, String endTime , String periodic) {
         this.code = code;
         this.start = start;
         this.end = end;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.periodic=periodic;
     }
 
     @Override

@@ -14,12 +14,17 @@
         <TextView
                 android:text="Місто \n відправлення"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/start" android:layout_weight="1"
+                android:layout_height="wrap_content" android:id="@+id/city" android:layout_weight="1"
                 android:textColor="@color/black" android:textAlignment="center" android:textSize="13sp"/>
         <TextView
                 android:text="Час\n відправлення"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/startTime" android:layout_weight="1"
+                android:layout_height="wrap_content" android:id="@+id/arrivalTime" android:layout_weight="1"
+                android:textColor="@color/black" android:textAlignment="center" android:textSize="13sp"/>
+        <TextView
+                android:text="Час\n відправлення"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/departmentTime" android:layout_weight="1"
                 android:textColor="@color/black" android:textAlignment="center" android:textSize="13sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,14 +12,19 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="1dp">
         <TextView
-                android:text="@string/stop_from_text"
+                android:text="@string/header_city_from"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/start" android:layout_weight="1"
+                android:layout_height="wrap_content" android:id="@+id/city" android:layout_weight="1"
                 android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
         <TextView
-                android:text="@string/stop_fromTime_text"
+                android:text="@string/header_time_from"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/startTime" android:layout_weight="1"
+                android:layout_height="wrap_content" android:id="@+id/arrivalTime" android:layout_weight="1"
+                android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
+        <TextView
+                android:text="@string/header_time_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/departmentTime" android:layout_weight="1"
                 android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

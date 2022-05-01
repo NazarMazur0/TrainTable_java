@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mswitch=findViewById(R.id.mswitch);
         recyclerView = findViewById(R.id.RV);
-       // recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        //LinearLayoutManager l =
         mbutton = findViewById(R.id.search);
         from=findViewById(R.id.editTextTextFrom);
         to=findViewById(R.id.editTextTextTo);
@@ -51,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         codeTv=findViewById(R.id.textViewCode);
         fadeout = AnimationUtils.loadAnimation(this,R.anim.fadeout);
         fadein = AnimationUtils.loadAnimation(this,R.anim.fadein);
-        RecyclerView v = new RecyclerView(this);
-       hideView(editCode,codeTv);
+       hideView(editCode,
+               codeTv);
        recyclerView.setVisibility(View.INVISIBLE);
         mbutton.setOnClickListener(
                 view -> {
@@ -68,33 +66,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mswitch.setOnCheckedChangeListener(
-                    (buttonView, isChecked) ->{
-                        toggleSwitch(isChecked);
-                });
+                    (buttonView, isChecked) -> toggleSwitch(isChecked));
 
 
     }
     void toggleSwitch(boolean isChecked){
         if(isChecked){
             mswitch.setText(R.string.switch_on);
-            hideView(to,toTv,from,fromTv, recyclerView);
-            recyclerView.setAdapter(new StopAdapterR(new ArrayList<>()));
+            hideView(to,
+                    toTv,
+                    from,
+                    fromTv,
+                    recyclerView);
+            recyclerView.setAdapter(new StopAdapter(new ArrayList<>()));
             recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-            showView(editCode,codeTv);
+            showView(editCode,
+                    codeTv);
             switcState=true;
         }else  {
             mswitch.setText(R.string.switch_off);
-            showView(to,toTv,from,fromTv);
-            recyclerView.setAdapter(new StopAdapterR(new ArrayList<>()));
+            showView(to,
+                    toTv,
+                    from,
+                    fromTv);
+            recyclerView.setAdapter(new StopAdapter(new ArrayList<>()));
             recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-            hideView(editCode,codeTv, recyclerView);
+            hideView(editCode,
+                    codeTv,
+                    recyclerView);
             switcState=false;
         }
     }
 
     void showResult(String from , String to){
         loadRoutes();
-        ArrayList<Match> arrayOfMatches=new ArrayList<>();
+        ArrayList<Match> arrayOfMatches;
         try {
             arrayOfMatches = searchByName(from,to);
         }
@@ -112,11 +118,12 @@ public class MainActivity extends AppCompatActivity {
                 getString(R.string.header_city_from),
                 getString(R.string.header_city_to)  ,
                 getString(R.string.header_time_from),
-                getString(R.string.header_time_to)
+                getString(R.string.header_time_to),
+                ""
         ));
         ConcatAdapter adapter = new ConcatAdapter(
-                new HeaderMatchAdapterR(headerMatch),
-                new MatchAdapterR(arrayOfMatches)
+                new HeaderMatchAdapter(headerMatch),
+                new MatchAdapter(arrayOfMatches)
         );
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
@@ -125,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }
     void showResult(String code){
         loadRoutes();
-        Match match=null;
+        Match match;
         try {
             match = searchByCode(code);
         }
@@ -141,13 +148,17 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Stop> stopsList =getRouteByMatch(match).getStopsList();
         ArrayList<Stop> headerStop = new ArrayList<>();
+        ArrayList<Match> periodicList = new ArrayList<>();
+        periodicList.add(match);
         headerStop.add(new Stop(
-                getString(R.string.stop_from_text),
-                getString( R.string.stop_fromTime_text)
+                getString(R.string.header_city_from),
+                getString( R.string.header_time_from),
+                getString(R.string.header_time_to)
         ));
         ConcatAdapter adapter = new ConcatAdapter(
-                new HeaderStopAdapterR(headerStop),
-                new StopAdapterR(stopsList)
+                new HeaderStopAdapter(headerStop),
+                new PeriodicAdapter( periodicList ),
+                new StopAdapter(stopsList)
         );
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
@@ -178,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             Path currentRelativePath = Paths.get("");
             String internalPath = currentRelativePath.toAbsolutePath().toString();
-            Log.e("Exception",internalPath);
         }
 
     }
@@ -192,13 +202,23 @@ public class MainActivity extends AppCompatActivity {
                 if(startPoint.equals(stopsNames[j])){
                     for (int k = 0; k < stopsNames.length; k++) {
                         if(endPoint.equals(stopsNames[k])&&k>j){
-                            Map<String,String> stops=i.getMapOfStops();
-                            String number = i.getCode();
-                            String start = stopsNames[j];
-                            String startTime =  stops.get(stopsNames[j]);
-                            String end =stopsNames[k];
-                            String endTime =stops.get(stopsNames[k]);
-                            mat.add( new Match(number,start,startTime,end,endTime));
+                            ArrayList<ArrayList<String>> stops=i.getStops();
+                            String number = i.getCode(), periodic=i.getPeriodic(), start = startPoint , end=endPoint;
+                            String startTime="";
+                            String endTime="";
+                            for (ArrayList<String> l:stops) {
+                                if(l.get(0).equals(startPoint))
+                                    startTime=l.get(2);
+                                if(l.get(0).equals(endPoint))
+                                    endTime=l.get(1);
+                            }
+                            mat.add( new Match(number,
+                                    start,
+                                    end,
+                                    startTime,
+                                    endTime,
+                                    periodic
+                                    ));
                         }
                     }
                 }
@@ -215,37 +235,59 @@ public class MainActivity extends AppCompatActivity {
                 codeI=i.getCode().substring(0,3);
                int code1= Integer.parseInt(code);
                int code2 = Integer.parseInt(codeI);
-               Log.d("code",""+code1);
-               Log.d("code",""+code2);
                if(code1==code2){
-                   String number = i.getCode();
-                   String start = i.getStops().get(0).get(0);
-                   String startTime = i.getStops().get(0).get(1);
-                   String end = i.getStops().get(i.getStops().size() - 1).get(0);
-                   String endTime = i.getStops().get(i.getStops().size() - 1).get(1);
-                   match = new Match(number, start, startTime, end, endTime);
+                   String
+                           number = i.getCode(),
+                           periodic=i.getPeriodic(),
+                           start = i.getStops().get(0).get(0),
+                           startTime = i.getStops().get(0).get(1),
+                           end = i.getStops().get(i.getStops().size() - 1).get(0),
+                           endTime = i.getStops().get(i.getStops().size() - 1).get(1);
+                   match = new Match(number,
+                           start,
+                           startTime,
+                           end,
+                           endTime,
+                           periodic
+                   );
                    break;
                } else continue;
             }
              codeI = i.getCode().length()<4?i.getCode():i.getCode().substring(0,3)+i.getCode().substring(4);
                 if (code.equals(codeI)) {
-                    String number = i.getCode();
-                    String start = i.getStops().get(0).get(0);
-                    String startTime = i.getStops().get(0).get(1);
-                    String end = i.getStops().get(i.getStops().size() - 1).get(0);
-                    String endTime = i.getStops().get(i.getStops().size() - 1).get(1);
-                    match = new Match(number, start, startTime, end, endTime);
+                    String
+                            number = i.getCode(),
+                            periodic = i.getPeriodic(),
+                            start = i.getStops().get(0).get(0),
+                            startTime = i.getStops().get(0).get(1),
+                            end = i.getStops().get(i.getStops().size() - 1).get(0),
+                            endTime = i.getStops().get(i.getStops().size() - 1).get(1);
+                    match = new Match(number,
+                            start,
+                            startTime,
+                            end,
+                            endTime,
+                            periodic
+                            );
                     break;
                 } else {
                     code = code.substring(0, 3);
                     codeI = i.getCode().substring(0, 3);
                     if (code.equals(codeI)) {
-                        String number = i.getCode();
-                        String start = i.getStops().get(0).get(0);
-                        String startTime = i.getStops().get(0).get(1);
-                        String end = i.getStops().get(i.getStops().size() - 1).get(0);
-                        String endTime = i.getStops().get(i.getStops().size() - 1).get(1);
-                        match = new Match(number, start, startTime, end, endTime);
+                        String
+                                number = i.getCode(),
+                                periodic = i.getPeriodic(),
+                                start = i.getStops().get(0).get(0),
+                                startTime = i.getStops().get(0).get(1),
+                                end = i.getStops().get(i.getStops().size() - 1).get(0),
+                                endTime = i.getStops().get(i.getStops().size() - 1).get(1);
+                        match = new Match(number,
+                                start,
+                                startTime,
+                                end,
+                                endTime,
+                                periodic
+                        );
                         break;
                     }
                 }
@@ -256,34 +298,33 @@ public class MainActivity extends AppCompatActivity {
         return match;
     }
     Route getRouteByMatch(Match match){
-        for (Route i :routes) {
-            if(i.getCode().equals(match.getCode())) return i;
-        }
+        for (Route i :routes)
+            if(i.getCode().equals(match.getCode()))
+                return i;
+
         return null;
     }
     void hideView(View v ){
-
         v.startAnimation(fadeout);
         v.setVisibility(View.INVISIBLE);
         v.setTranslationZ(0);
         v.setEnabled(false);
+    }
 
-    }
     void hideView(View... v ){
-        for (View view : v) {
+        for (View view : v)
             hideView(view);
-        }
     }
+
     void showView(View v){
         v.startAnimation(fadein);
         v.setVisibility(View.VISIBLE);
-        v.bringToFront();
         v.setTranslationZ(1);
         v.setEnabled(true);
     }
+
     void showView(View... v ){
-        for (View view : v) {
+        for (View view : v)
             showView(view);
-        }
     }
 }

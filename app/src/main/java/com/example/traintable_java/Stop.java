@@ -1,35 +1,38 @@
 package com.example.traintable_java;
 
 public class Stop {
-    private String city;
-    private String time;
+     private String city;
+     private String arrivalTime;
+     private String departmentTime;
 
-    public Stop(String city, String time) {
+    public Stop(String city, String arrivalTime, String departmentTime) {
         this.city = city;
-        this.time = time;
+        this.arrivalTime = arrivalTime;
+        this.departmentTime = departmentTime;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+
+    public String getArrivalTime() {
+        return arrivalTime;
     }
 
-    public String getTime() {
-        return time;
+
+
+    public String getDepartmentTime() {
+        return departmentTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
 
     @Override
     public String toString() {
         return "Stop{" +
                 "city='" + city + '\'' +
-                ", time='" + time + '\'' +
+                ", arrivalTime='" + arrivalTime + '\'' +
+                ", departmentTime='" + departmentTime + '\'' +
                 '}';
     }
 }
