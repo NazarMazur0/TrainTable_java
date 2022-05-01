@@ -22,11 +22,11 @@ public class HeaderMatchAdapter extends RecyclerView.Adapter<HeaderMatchAdapter.
 
         public ViewHolder(View view) {
             super(view);
-            code =  view.findViewById(R.id.code);
-            start =  view.findViewById(R.id.city);
-            startTime =  view.findViewById(R.id.arrivalTime);
-            end = view.findViewById(R.id.end);
-            endTime = view.findViewById(R.id.endTime);
+            code =  view.findViewById(R.id.TextView1);
+            start =  view.findViewById(R.id.TextView2);
+            startTime =  view.findViewById(R.id.TextView3);
+            end = view.findViewById(R.id.TextView4);
+            endTime = view.findViewById(R.id.TextView5);
         }
 
         public TextView getCode() {
@@ -59,7 +59,7 @@ public class HeaderMatchAdapter extends RecyclerView.Adapter<HeaderMatchAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.list_header, viewGroup, false);
+                .inflate(R.layout.list_header_route, viewGroup, false);
 
         return new ViewHolder(view);
     }

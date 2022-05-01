@@ -22,9 +22,9 @@ public class StopAdapter extends RecyclerView.Adapter<StopAdapter.ViewHolder> {
 
         public ViewHolder(View view) {
             super(view);
-            city = view.findViewById(R.id.city) ;
-            arrivalTime = view.findViewById(R.id.arrivalTime);
-            departmentTime = view.findViewById(R.id.departmentTime);
+            city = view.findViewById(R.id.departmentCity) ;
+            arrivalTime = view.findViewById(R.id.arrivalCity);
+            departmentTime = view.findViewById(R.id.departmentCity);
         }
 
         public TextView getCity() {

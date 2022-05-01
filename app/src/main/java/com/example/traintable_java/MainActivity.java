@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         fadein = AnimationUtils.loadAnimation(this,R.anim.fadein);
        hideView(editCode,
                codeTv);
-       recyclerView.setVisibility(View.INVISIBLE);
+       //recyclerView.setVisibility(View.INVISIBLE);
         mbutton.setOnClickListener(
                 view -> {
                     if(!switcState) {

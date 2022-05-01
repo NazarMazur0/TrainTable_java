@@ -24,10 +24,10 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> 
         public ViewHolder(View view) {
             super(view);
             code =  view.findViewById(R.id.code);
-            start =  view.findViewById(R.id.city);
-            startTime =  view.findViewById(R.id.arrivalTime);
-            end =  view.findViewById(R.id.end);
-            endTime =  view.findViewById(R.id.endTime);
+            start =  view.findViewById(R.id.departmentCity);
+            startTime =  view.findViewById(R.id.arrivalCity);
+            end =  view.findViewById(R.id.arrivalCity);
+            endTime =  view.findViewById(R.id.arrivalCity);
             periodic =  view.findViewById(R.id.periodic);
         }
 

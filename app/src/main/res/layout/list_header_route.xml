@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:background="#484F60"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent">
+    <TextView
+            android:text="@string/header_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="#FFF6F6" android:textSize="13sp" android:id="@+id/TextView1"/>
+    <TextView
+            android:text="@string/header_city_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"
+            android:id="@+id/TextView2"/>
+    <TextView
+            android:text="@string/header_time_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"
+            android:id="@+id/TextView3"/>
+    <TextView
+            android:text="@string/header_city_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"
+            android:id="@+id/TextView4"/>
+    <TextView
+            android:text="@string/header_time_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"
+            android:id="@+id/TextView5"/>
+    </LinearLayout>
