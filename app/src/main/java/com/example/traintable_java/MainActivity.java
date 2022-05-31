@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         fadein = AnimationUtils.loadAnimation(this,R.anim.fadein);
        hideView(editCode,
                codeTv);
-       //recyclerView.setVisibility(View.INVISIBLE);
+       recyclerView.setVisibility(View.INVISIBLE);
         mbutton.setOnClickListener(
                 view -> {
                     if(!switcState) {
@@ -112,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,R.string.toast_empty_input,Toast.LENGTH_LONG).show();
             return;
         }
+        catch (NoSuchElementException e){
+            Toast.makeText(this,"Немає інформації",Toast.LENGTH_LONG).show();
+            return;
+        }
         ArrayList<Match> headerMatch = new ArrayList<>();
         headerMatch.add( new Match(
                 getString(R.string.header_code),
@@ -146,14 +150,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         ArrayList<Stop> stopsList =getRouteByMatch(match).getStopsList();
         ArrayList<Stop> headerStop = new ArrayList<>();
         ArrayList<Match> periodicList = new ArrayList<>();
         periodicList.add(match);
         headerStop.add(new Stop(
-                getString(R.string.header_city_from),
-                getString( R.string.header_time_from),
-                getString(R.string.header_time_to)
+                getString(R.string.header_city),
+                getString(R.string.header_time_to),
+                getString( R.string.header_time_from)
+
         ));
         ConcatAdapter adapter = new ConcatAdapter(
                 new HeaderStopAdapter(headerStop),
@@ -203,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int k = 0; k < stopsNames.length; k++) {
                         if(endPoint.equals(stopsNames[k])&&k>j){
                             ArrayList<ArrayList<String>> stops=i.getStops();
-                            String number = i.getCode(), periodic=i.getPeriodic(), start = startPoint , end=endPoint;
+                            String number = i.getCode(), periodic=i.getPeriodic();
                             String startTime="";
                             String endTime="";
                             for (ArrayList<String> l:stops) {
@@ -213,8 +219,8 @@ public class MainActivity extends AppCompatActivity {
                                     endTime=l.get(1);
                             }
                             mat.add( new Match(number,
-                                    start,
-                                    end,
+                                    startPoint,
+                                    endPoint,
                                     startTime,
                                     endTime,
                                     periodic
@@ -224,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        if(mat.size()==0) throw new NoSuchElementException("No data");
         return mat;
     }
     Match searchByCode(String code){

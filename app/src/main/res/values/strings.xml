@@ -19,4 +19,5 @@
     <string name="header_time_from">Час\n відправлення</string>
     <string name="header_city_to">Місто\nприбуття</string>
     <string name="header_time_to">Час\n прибуття</string>
+    <string name="header_city">Місто</string>
 </resources>

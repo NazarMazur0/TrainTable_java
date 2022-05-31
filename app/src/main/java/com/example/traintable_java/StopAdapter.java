@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class StopAdapter extends RecyclerView.Adapter<StopAdapter.ViewHolder> {
 
-    private ArrayList<Stop> stops;
+    private final ArrayList<Stop> stops;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -23,8 +23,8 @@ public class StopAdapter extends RecyclerView.Adapter<StopAdapter.ViewHolder> {
         public ViewHolder(View view) {
             super(view);
             city = view.findViewById(R.id.departmentCity) ;
-            arrivalTime = view.findViewById(R.id.arrivalCity);
-            departmentTime = view.findViewById(R.id.departmentCity);
+            arrivalTime = view.findViewById(R.id.arrivalTime);
+            departmentTime = view.findViewById(R.id.departmentTime);
         }
 
         public TextView getCity() {

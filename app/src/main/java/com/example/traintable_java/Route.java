@@ -1,6 +1,8 @@
 package com.example.traintable_java;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Route {
     private final int  id;

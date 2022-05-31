@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
 
-    private ArrayList<Match> matches;
+    private final ArrayList<Match> matches;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -25,9 +25,9 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> 
             super(view);
             code =  view.findViewById(R.id.code);
             start =  view.findViewById(R.id.departmentCity);
-            startTime =  view.findViewById(R.id.arrivalCity);
+            startTime =  view.findViewById(R.id.departmentTime);
             end =  view.findViewById(R.id.arrivalCity);
-            endTime =  view.findViewById(R.id.arrivalCity);
+            endTime =  view.findViewById(R.id.arrivalTime);
             periodic =  view.findViewById(R.id.periodic);
         }
 

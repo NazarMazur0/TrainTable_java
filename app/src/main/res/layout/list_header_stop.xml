@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="wrap_content" android:background="#484F60">
     <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/LinearLayout"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="1dp">
-        <TextView
-                android:text="@string/header_city_from"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/departmentCity" android:layout_weight="1"
-                android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
-        <TextView
-                android:text="@string/header_time_from"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/arrivalCity" android:layout_weight="1"
-                android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
-        <TextView
-                android:text="@string/header_time_to"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/departmentCity" android:layout_weight="1"
-                android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"/>
+            android:layout_marginStart="1dp"
+            android:background="#484F60">
+    <TextView
+            android:text="@string/header_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"
+            android:id="@+id/TextView1"/>
+    <TextView
+            android:text="@string/header_time_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"
+            android:id="@+id/TextView2"/>
+    <TextView
+            android:text="@string/header_time_from"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="#FFF6F6" android:textAlignment="center" android:textSize="13sp"
+            android:id="@+id/TextView3"/>
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>

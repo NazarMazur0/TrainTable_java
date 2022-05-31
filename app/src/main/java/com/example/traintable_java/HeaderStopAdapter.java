@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class HeaderStopAdapter extends RecyclerView.Adapter<HeaderStopAdapter.ViewHolder> {
 
-    private ArrayList<Stop> stops;
+    private final ArrayList<Stop> stops;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -18,9 +18,9 @@ public class HeaderStopAdapter extends RecyclerView.Adapter<HeaderStopAdapter.Vi
         private final TextView departmentTime;
         public ViewHolder(View view) {
             super(view);
-            city = view.findViewById(R.id.departmentCity) ;
-            arrivalTime = view.findViewById(R.id.arrivalCity);
-            departmentTime = view.findViewById(R.id.departmentCity);
+            city = view.findViewById(R.id.TextView1) ;
+            arrivalTime = view.findViewById(R.id.TextView2);
+            departmentTime = view.findViewById(R.id.TextView3);
         }
 
         public TextView getCity() {
